@@ -26,3 +26,8 @@ print("Reversed Array:", arr)
 
 buffer_info = arr.buffer_info()
 print("Memory Info:", buffer_info)
+
+
+#sorting
+arr = sorted(arr)
+print("Array after sorting:", arr)
