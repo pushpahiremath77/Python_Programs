@@ -1,59 +1,60 @@
 import random
 
-# UC7: Play the game with 2 players and report which player won the game
+def roll_die():
+    return random.randint(1, 6)
+
+def check_option(die_value):
+    options = ["No Play", "Ladder", "Snake"]
+    option = random.choice(options)
+    
+    if option == "Ladder":
+        print(f"Ladder : Player moves forward by {die_value} steps.")
+    elif option == "Snake":
+        print(f"Snake : Player moves backward by {die_value} steps.")
+    else:
+        print("No Play : Player stays in the same position.")
+    return option
+
 def play_two_players():
-    position1 = 0
-    position2 = 0
+    player1_position = 0
+    player2_position = 0
     rolls1 = rolls2 = 0
-    winner = None
+    turn = 1
     
-    while position1 != 100 and position2 != 100:
-        # Player 1's turn
-        rolls1 += 1
-        dice_roll = random.randint(1, 6)
-        option = random.randint(1, 3)
-        
-        if option == 1:  # No Play
-            pass
-        elif option == 2:  # Ladder
-            position1 += dice_roll
-        else:  # Snake
-            position1 -= dice_roll
-        
-        if position1 < 0:
-            position1 = 0
-        if position1 > 100:
-            position1 -= dice_roll
-        
-        if position1 == 100:
-            winner = "Player 1"
-            break
-        
-        # Player 2's turn
-        rolls2 += 1
-        dice_roll = random.randint(1, 6)
-        option = random.randint(1, 3)
-        
-        if option == 1:  # No Play
-            pass
-        elif option == 2:  # Ladder
-            position2 += dice_roll
-        else:  # Snake
-            position2 -= dice_roll
-        
-        if position2 < 0:
-            position2 = 0
-        if position2 > 100:
-            position2 -= dice_roll
-        
-        if position2 == 100:
-            winner = "Player 2"
-            break
-        
-        # Reporting after each roll
-        print(f"Player 1: Roll {rolls1}, Position: {position1}")
-        print(f"Player 2: Roll {rolls2}, Position: {position2}")
-    
-    print(f"{winner} wins after {rolls1 + rolls2} rolls.")
+    while player1_position < 100 and player2_position < 100:
+        if turn == 1:
+            die_value = roll_die()
+            rolls1 += 1
+            option = check_option(die_value)
+            
+            if option == "Ladder" and player1_position + die_value <= 100:
+                player1_position += die_value
+            elif option == "Snake":
+                player1_position -= die_value
+                if player1_position < 0:
+                    player1_position = 0
+            
+            print(f"Player 1's position: {player1_position}")
+            if player1_position == 100:
+                print(f"Player 1 wins after {rolls1} rolls!")
+                break
+            turn = 2 
+        else:
+            die_value = roll_die()
+            rolls2 += 1
+            option = check_option(die_value)
+            
+            if option == "Ladder" and player2_position + die_value <= 100:
+                player2_position += die_value
+            elif option == "Snake":
+                player2_position -= die_value
+                if player2_position < 0:
+                    player2_position = 0
+            
+            print(f"Player 2's position: {player2_position}")
+            if player2_position == 100:
+                print(f"Player 2 wins after {rolls2} rolls!")
+                break
+            turn = 1
 
 play_two_players()
