@@ -18,3 +18,6 @@ print()
 #Access values using key
 for key in my_dict:
     print(f"Key: {key}, Value: {my_dict[key]}")
+
+for key,value in my_dict.items():
+    print(f"{key}-->{value}")

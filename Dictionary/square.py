@@ -4,6 +4,6 @@ def generate_square_dict(n):
         square_dict[x] = x * x
     return square_dict
 
-n = 6
-result = generate_square_dict(n)
+# n = 6
+result = generate_square_dict(6)
 print(result)
